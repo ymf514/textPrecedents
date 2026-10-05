@@ -14,7 +14,7 @@
      任何带 link 的批注加 newTab: true → 点击直接在新标签页打开（网站不允许嵌入时用）
    ===================================================================== */
 
-window.ESSAY_TITLE = 'Who Makes\na Moment Funny?';   // \n = 换行
+window.ESSAY_TITLE = 'What Makes\na Moment Funny?';   // \n = 换行
 window.ESSAY_SUBTITLE = 'How does an ordinary event become funny to someone? — Text Precedents Essay';
 
 /* 首页标题下的小字 */
