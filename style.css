@@ -1,0 +1,337 @@
+:root {
+  --black: #000;
+  --white: #f5f5f0;
+  --yellow: #fdf0a6;
+  --font: "Times New Roman", Times, serif;
+  --gutter: clamp(16px, 4vw, 64px);
+}
+
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body {
+  margin: 0;
+  background: var(--black);
+  color: var(--white);
+  font-family: var(--font);
+}
+
+/* ---------- Hero ---------- */
+.hero {
+  position: relative;
+  height: 100vh;
+  min-height: 480px;
+  display: flex;
+  align-items: flex-end;
+  justify-content: flex-end;
+  overflow: hidden;
+}
+.hero-bg {
+  position: absolute; inset: 0;
+  background: #222 url("images/hero.png") center / cover no-repeat;
+  filter: grayscale(1) contrast(1.05);
+}
+.hero-mask {
+  position: absolute; inset: 0;
+  background: rgba(0, 0, 0, 0.55);
+}
+.hero-text {
+  position: relative;
+  margin: 0 var(--gutter) clamp(56px, 9vh, 96px);
+  text-align: right;
+}
+.hero-line {
+  margin: 1.4em 0 0 auto;
+  max-width: 34em;
+  font-size: clamp(14px, 1.1vw, 17px);
+  font-style: italic;
+  line-height: 1.6;
+  opacity: .72;
+}
+.hero-title {
+  margin: 0;
+  font-weight: normal;
+  font-size: clamp(32px, 4.5vw, 64px);
+  line-height: 1.05;
+  text-align: right;
+  letter-spacing: -0.01em;
+}
+
+/* ---------- Essay: 0.618 / 0.382 ---------- */
+.essay {
+  display: flex;
+  position: relative;
+  padding: 120px 0 80px;
+}
+.text-col {
+  width: 61.8%;
+  padding: 0 clamp(24px, 4vw, 72px) 0 var(--gutter);
+  font-size: clamp(18px, 1.35vw, 22px);
+  line-height: 1.7;
+}
+.note-col {
+  width: 38.2%;
+  position: relative;
+  padding-right: var(--gutter);
+}
+.essay-subtitle {
+  font-size: .6em;
+  letter-spacing: .06em;
+  text-transform: uppercase;
+  opacity: .6;
+  margin: 0 0 2.5em;
+}
+.essay-question {
+  font-size: 1.25em;
+  font-style: italic;
+  margin: 0 0 2.4em;
+}
+.closing-note {
+  width: fit-content;
+  max-width: 22em;
+  margin: 3em 0 0 auto;
+  padding: 14px 18px 18px;
+  background: var(--sticky);
+  color: var(--sticky-ink);
+  font: 24px/1.2 var(--sticky-font);
+  transform: rotate(-1.5deg);
+  box-shadow: 0 6px 14px rgba(0, 0, 0, .45);
+}
+.text-col p { margin: 0 0 1.4em; }
+.text-col h2 { font-weight: normal; font-size: 1.4em; margin: 2em 0 .8em; }
+
+/* underlined sentence */
+.mark {
+  text-decoration: underline;
+  text-decoration-color: var(--yellow);
+  text-decoration-thickness: 1px;
+  text-underline-offset: 4px;
+  cursor: pointer;
+  transition: background .2s, color .2s;
+}
+.mark.active {
+  background: var(--yellow);
+  color: var(--black);
+  text-decoration-color: var(--black);
+}
+
+/* ---------- Annotations ---------- */
+.anno {
+  position: absolute;
+  left: 0;
+  right: var(--gutter);
+  color: var(--yellow);
+  font-size: clamp(14px, 1vw, 16px);
+  line-height: 1.5;
+  padding-left: 16px;
+  border-left: 1px solid rgba(253, 240, 166, .35);
+  transition: border-color .2s, opacity .2s;
+}
+.anno.active { border-left-color: var(--yellow); }
+.note-col.has-active .anno:not(.active) { opacity: .45; }
+.anno p { margin: 0; }
+
+.anno-quote .quote-text { font-style: italic; font-size: 1.1em; }
+.anno-quote .quote-source {
+  display: inline-block;
+  margin-top: 6px;
+  color: var(--yellow);
+  font-size: .88em;
+  background: none; border: 0; padding: 0;
+  font-family: inherit;
+  text-align: left;
+}
+.anno-quote .quote-source::before { content: "— "; }
+button.quote-source {
+  cursor: pointer;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+button.quote-source:hover { background: var(--yellow); color: var(--black); }
+
+.anno-media .media-thumb {
+  display: block;
+  width: 50%;
+  padding: 0; border: 0; background: none;
+  cursor: pointer;
+  margin-bottom: 8px;
+}
+.anno-media img {
+  display: block;
+  width: 100%;
+  max-height: 260px;
+  object-fit: cover;
+  transition: opacity .2s;
+}
+.anno-media .media-thumb:hover img { opacity: .8; }
+
+/* ---------- Excerpts (smaller) ---------- */
+.excerpts { padding: 0 0 120px; }
+.excerpts-inner {
+  width: 61.8%;
+  padding: 40px clamp(24px, 4vw, 72px) 0 var(--gutter);
+  border-top: 1px solid rgba(255, 255, 255, .2);
+  margin-left: 0;
+  font-size: 14px;
+  line-height: 1.6;
+  opacity: .75;
+}
+.excerpts h3 {
+  font-weight: normal;
+  font-size: 13px;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+  margin: 0 0 16px;
+}
+.excerpts ol { margin: 0; padding-left: 1.4em; }
+.excerpts li { margin-bottom: 6px; }
+
+/* ---------- Modal ---------- */
+.modal {
+  position: fixed; inset: 0;
+  z-index: 100;
+  background: rgba(0, 0, 0, .85);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
+}
+.modal[hidden] { display: none; }
+.modal-box {
+  width: min(1100px, 100%);
+  height: min(86vh, 100%);
+  background: #111;
+  border: 1px solid var(--yellow);
+  display: flex;
+  flex-direction: column;
+}
+.modal-bar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 8px 12px;
+  border-bottom: 1px solid rgba(253, 240, 166, .4);
+}
+.modal-bar a { color: var(--yellow); font-size: 14px; }
+.modal-bar button {
+  background: none; border: 0;
+  color: var(--yellow);
+  font-size: 20px;
+  cursor: pointer;
+}
+.modal iframe { flex: 1; width: 100%; border: 0; background: #fff; }
+.modal iframe[hidden], .modal img[hidden] { display: none; }
+.modal img { flex: 1; min-height: 0; width: 100%; object-fit: contain; padding: 16px; }
+
+/* ---------- Mobile: annotations flow under their paragraph ---------- */
+@media (max-width: 800px) {
+  .essay { display: block; padding-top: 72px; }
+  .text-col, .excerpts-inner { width: 100%; padding: 0 16px; }
+  .excerpts-inner { padding-top: 32px; }
+  .note-col { display: none; }
+  .anno {
+    position: static;
+    margin: -0.6em 0 1.6em;
+  }
+  .anno + .anno { margin-top: 0; }
+}
+
+/* ---------- Reader sticky notes ---------- */
+:root {
+  --sticky: #fce77a;           /* 便利贴颜色：比主题黄稍黄一点 */
+  --sticky-ink: #111;
+  --sticky-font: "Caveat", "Ma Shan Zheng", cursive;
+}
+.text-col ::selection { background: rgba(253, 240, 166, .35); color: #fff; }
+
+.sticky-layer { position: absolute; inset: 0; pointer-events: none; z-index: 20; }
+
+.sticky-plus {
+  position: absolute;
+  z-index: 30;
+  width: 26px; height: 26px;
+  margin: -30px 0 0 2px;          /* 选区右上角 */
+  border: 0; border-radius: 50%;
+  background: var(--sticky);
+  color: var(--sticky-ink);
+  font: 22px/26px var(--font);
+  cursor: pointer;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, .5);
+  transition: transform .15s;
+}
+.sticky-plus:hover { transform: scale(1.12); }
+.sticky-plus[hidden] { display: none; }
+
+.sticky {
+  position: absolute;
+  width: 210px;
+  pointer-events: auto;
+  background: var(--sticky);
+  color: var(--sticky-ink);
+  padding: 4px 12px 14px;
+  transform: rotate(-1.2deg);
+  box-shadow: 0 6px 14px rgba(0, 0, 0, .45);
+  cursor: grab;
+  touch-action: none;
+  transition: box-shadow .15s, transform .15s;
+}
+.sticky:nth-child(even) { transform: rotate(1deg); }
+.sticky.selected { box-shadow: 0 10px 24px rgba(0, 0, 0, .6); transform: rotate(0); }
+.sticky.dragging { cursor: grabbing; }
+
+.sticky-bar { display: flex; justify-content: flex-end; gap: 2px; height: 22px; }
+.sticky-bar button {
+  width: 22px; height: 22px;
+  border: 0; background: none;
+  color: rgba(0, 0, 0, .55);
+  font: 18px/22px var(--font);
+  cursor: pointer;
+  padding: 0;
+}
+.sticky-bar button:hover { color: #000; }
+
+.sticky-text {
+  display: block;
+  width: 100%;
+  min-height: 70px;
+  border: 0; outline: 0; resize: none; overflow: hidden;
+  background: transparent;
+  color: var(--sticky-ink);
+  font: 24px/1.15 var(--sticky-font);
+  padding: 0;
+  cursor: text;
+}
+.sticky-text::placeholder { color: rgba(0, 0, 0, .35); }
+
+/* 折叠后的小标识：位置与 “−” 相同 */
+.sticky-badge {
+  display: none;
+  position: absolute;
+  top: 4px; right: 12px;
+  width: 22px; height: 22px;
+  border: 0; padding: 0;
+  background: linear-gradient(225deg, transparent 6px, var(--sticky) 6px);
+  box-shadow: 0 2px 6px rgba(0, 0, 0, .5);
+  cursor: pointer;
+  pointer-events: auto;
+}
+.sticky.collapsed {
+  background: none; box-shadow: none; transform: none;
+  pointer-events: none;
+}
+.sticky.collapsed .sticky-bar,
+.sticky.collapsed .sticky-text { visibility: hidden; }
+.sticky.collapsed .sticky-badge { display: block; }
+.sticky.collapsed .sticky-badge:hover { transform: scale(1.15); }
+
+.sticky-toast {
+  position: fixed;
+  left: 50%; bottom: 28px;
+  transform: translate(-50%, 20px);
+  background: var(--sticky); color: var(--sticky-ink);
+  font: 15px var(--font);
+  padding: 8px 16px;
+  opacity: 0; pointer-events: none;
+  transition: opacity .2s, transform .2s;
+  z-index: 200;
+}
+.sticky-toast.show { opacity: 1; transform: translate(-50%, 0); }
